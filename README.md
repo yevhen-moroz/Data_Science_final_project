@@ -1,8 +1,45 @@
 # Telecom Churn Prediction
 
-Проєкт прогнозує ймовірність відтоку клієнтів телекомунікаційної компанії на основі історичних даних про підписку, рахунки, контракт, якість сервісу та використання інтернету.
+This project predicts the likelihood of customer churn in a telecommunications company based on historical data related to subscriptions, billing, contracts, service quality, and internet usage.
+## Technologies Used
 
-## Структура проєкту
+### Programming & Data Processing
+
+* Python
+* Pandas
+* NumPy
+
+### Machine Learning
+
+* Scikit-learn
+* Logistic Regression
+* Decision Tree
+* Random Forest
+
+### Data Visualization
+
+* Matplotlib
+* Seaborn
+
+### Web Application
+
+* Streamlit
+
+### Model Serialization
+
+* Joblib
+
+### Development & Deployment
+
+* Jupyter Notebook
+* Docker
+
+### Version Control
+
+* Git
+* GitHub
+
+## Project Structure
 
 ```text
 telecom_churn_app/
@@ -37,9 +74,9 @@ telecom_churn_app/
 └── README.md
 ```
 
-## Логіка роботи
+## Project Workflow
 
-У проєкті використовується такий pipeline:
+The project follows the pipeline below:
 
 ```text
 notebooks/EDA.ipynb
@@ -53,114 +90,114 @@ models/churn_model.pkl
 src/app.py
 ```
 
-## Що робить EDA.ipynb
+## What EDA.ipynb Does
 
-Після запуску ноутбука створюється очищений датасет `data/processed/cleaned_churn_data.csv`, і вже на ньому навчається модель.
+After running the notebook, a cleaned dataset is created at `data/processed/cleaned_churn_data.csv`, which is then used for model training.
 
-Ноутбук виконує:
+The notebook performs:
 
-- завантаження сирого датасету з `data/raw/internet_service_churn.csv`;
-- перегляд структури даних;
-- перевірку пропущених значень;
-- аналіз розподілу цільової змінної `churn`;
-- побудову графіків;
-- аналіз кореляцій;
-- очищення датасету;
-- збереження результату в `data/processed/cleaned_churn_data.csv`.
+* loading the raw dataset from `data/raw/internet_service_churn.csv`;
+* exploring the dataset structure;
+* checking for missing values;
+* analyzing the distribution of the target variable `churn`;
+* generating visualizations;
+* performing correlation analysis;
+* cleaning the dataset;
+* saving the processed dataset to `data/processed/cleaned_churn_data.csv`.
 
-Правила очищення:
+### Data Cleaning Rules
 
-- колонка `id` видаляється;
-- `reamining_contract` заповнюється значенням `0`;
-- `download_avg` заповнюється медіаною;
-- `upload_avg` заповнюється медіаною.
+* the `id` column is removed;
+* missing values in `reamining_contract` are filled with `0`;
+* missing values in `download_avg` are filled with the median value;
+* missing values in `upload_avg` are filled with the median value.
 
-## Встановлення залежностей
+## Installing Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Порядок запуску
+## Running the Project
 
-### 1. Запустити EDA-ноутбук
+### 1. Run the EDA Notebook
 
-Відкрийте файл:
+Open the file:
 
 ```text
 notebooks/EDA.ipynb
 ```
 
-і виконайте всі клітинки. Після цього має зʼявитися файл:
+and execute all cells. After completion, the following file should be created:
 
 ```text
 data/processed/cleaned_churn_data.csv
 ```
 
-### 2. Навчити модель
+### 2. Train the Model
 
 ```bash
 python src/train_model.py
 ```
 
-Після навчання будуть створені або оновлені файли:
+After training, the following files will be created or updated:
 
 ```text
 models/churn_model.pkl
 models/metrics.json
 ```
 
-### 3. Запустити Streamlit-додаток
+### 3. Run the Streamlit Application
 
 ```bash
 streamlit run src/app.py
 ```
 
-Після запуску відкриється вебінтерфейс, де можна ввести дані нового клієнта й отримати прогноз:
+After launching, a web interface will open where you can enter information about a new customer and receive a churn prediction:
 
 ```text
-Високий / середній / низький ризик відтоку
+High / Medium / Low Churn Risk
 ```
 
 ## Docker
 
-Збірка контейнера:
+Build the Docker image:
 
 ```bash
 docker build -t telecom-churn-app .
 ```
 
-Запуск контейнера:
+Run the container:
 
 ```bash
 docker run -p 8501:8501 telecom-churn-app
 ```
 
-Після запуску застосунок буде доступний у браузері:
+After startup, the application will be available in your browser at:
 
 ```text
 http://localhost:8501
 ```
 
-## Моделі
+## Models
 
-У `src/train_model.py` порівнюються кілька моделей:
+Several machine learning models are compared in `src/train_model.py`:
 
-- Logistic Regression;
-- Decision Tree;
-- Random Forest.
+* Logistic Regression;
+* Decision Tree;
+* Random Forest.
 
-Найкраща модель вибирається за значенням F1-score і зберігається у `models/churn_model.pkl`.
+The best-performing model is selected based on the F1-score and saved as `models/churn_model.pkl`.
 
-## Метрики
+## Evaluation Metrics
 
-Для оцінки використовуються:
+The following metrics are used to evaluate model performance:
 
-- Accuracy;
-- Precision;
-- Recall;
-- F1-score;
-- Classification report;
-- Confusion matrix.
+* Accuracy;
+* Precision;
+* Recall;
+* F1-score;
+* Classification Report;
+* Confusion Matrix.
 
-Для задачі прогнозування відтоку клієнтів особливо важливі `Recall` та `F1-score`, оскільки компанії важливо не пропустити клієнтів, які справді можуть припинити користування послугами.
+For customer churn prediction, **Recall** and **F1-score** are particularly important because companies need to identify as many customers at risk of leaving as possible while maintaining a reasonable balance between false positives and false negatives.
